@@ -41,4 +41,16 @@ RSpec.describe ShoppingItemsController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "PATCH #update" do
+    let(:shopping_item) {create(:shopping_item)}
+
+    it "modifies an existing item" do
+      patch :update, params: {"id"=>shopping_item.id, shopping_item: {"name"=> "new_name", "description"=> "new_desc"}}
+      
+      shopping_item.reload
+      expect(shopping_item.name).to eq("new_name")
+      expect(shopping_item.description).to eq("new_desc")
+    end
+  end
 end

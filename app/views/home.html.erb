@@ -1,14 +1,20 @@
 <div ng-app="shoppingList" ng-controller="shoppingItemsController" class="container shopping-list">
-  <h1> Shopping List </h1>
+    <h1> Shopping List</h1>
   <div class="row">
       <a class="btn btn-default col-md-2" ng-click="changeOrder()"><%= fa_icon "sort-alpha-{{order_type}}", text: "Ordenar" %></a>
   </div>
   <div class="row" ng-repeat="item in items | orderBy : 'name' : order_type == 'desc'" value="{{item.name}}">
-     <div class="col-md-2 item">{{item.name}}</div>
+      <a class="col-md-2 item btn btn-default" ng-click="edit(item)">{{item.name}}</a>
      <a ng-click="remove(item)" class="btn btn-danger col-md-1">Remove</a>
   </div>
   <div class="row">
     <input type="text" ng-model="new_item.name" class="col-md-2" />
     <a ng-click="create(new_item)" class="btn btn-success col-md-1" > Create </a>
+  </div>
+  <div class="editing row" ng-show="editing">
+      <h2>Edit {{editing.name}}</h2>
+      <textarea ng-model="editing.description" class="col-md-2">
+      </textarea>
+      <a ng-click="save(new_item)" class="btn btn-success col-md-1"> Save </a>
   </div>
 </div>

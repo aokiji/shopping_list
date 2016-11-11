@@ -7,6 +7,18 @@ class ShoppingItemsController < ApplicationController
     @shopping_item = ShoppingItem.find(params.permit(:id)[:id])
   end
 
+  def update
+    params.permit!
+    @shopping_item = ShoppingItem.find(params[:id])
+    @shopping_item.update_attributes(params[:shopping_item])
+
+    if @shopping_item
+      return head 200
+    else
+      return head 403
+    end
+  end
+
   def create
     @shopping_item = ShoppingItem.create(params.permit![:shopping_item]) 
     if @shopping_item
